@@ -1,0 +1,21 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "madhumita-adf"
+		},
+		"AzureBlobStorage1_connectionString": {
+			"value": ""
+		},
+		"SqlServer1_connectionString": {
+			"value": ""
+		},
+		"SqlServer2_connectionString": {
+			"value": ""
+		},
+		"linked_sqiserver_connectionString": {
+			"value": "Integrated Security=False;Data Source=@{linkedService().servername};Initial Catalog=@{linkedService().dbname};User ID=@{linkedService().username};Password=@{linkedService().password}"
+		}
+	}
+}
