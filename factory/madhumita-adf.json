@@ -1,0 +1,9 @@
+{
+	"name": "madhumita-adf",
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "6bfd5301-70e0-49bd-8015-01f4ca3b236d",
+		"tenantId": "380a88f6-5447-406c-bebb-2c908f53f0a3"
+	}
+}

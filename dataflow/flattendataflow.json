@@ -1,0 +1,56 @@
+{
+	"name": "flattendataflow",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "companyjsondataset",
+						"type": "DatasetReference"
+					},
+					"name": "companyjson"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText5",
+						"type": "DatasetReference"
+					},
+					"name": "sinkcompany"
+				}
+			],
+			"transformations": [
+				{
+					"name": "flatten1",
+					"description": "Unrolling arrays from satel"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          name as string,",
+				"          location as string,",
+				"          satellites as string[],",
+				"          goods as (trade as boolean, customers as string[], orders as (orderId as integer, orderTotal as double, shipped as (orderItems as (itemName as string, itemQty as integer)[]))[])",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     documentForm: 'singleDocument') ~> companyjson",
+				"companyjson foldDown(unroll(satellites),",
+				"     mapColumn(",
+				"          name,",
+				"          location,",
+				"          satellites",
+				"     ),",
+				"     skipDuplicateMapInputs: false,",
+				"     skipDuplicateMapOutputs: false) ~> flatten1",
+				"flatten1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sinkcompany"
+			]
+		}
+	}
+}
